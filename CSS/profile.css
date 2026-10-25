@@ -1,0 +1,232 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  background: #0a0b0c;
+  color: #edf1ee;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  position: relative;
+}
+
+.glow{
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.blob{
+  position: absolute;
+  border-radius: 50%;
+  animation: drift 22s ease-in-out infinite alternate;
+}
+
+.blob-1{
+  width: 560px;
+  height: 480px;
+  top: -200px;
+  left: 8%;
+  background: radial-gradient(circle, rgba(183, 214, 189, 0.18), transparent 70%);
+}
+
+.blob-2{
+  width: 520px;
+  height: 440px;
+  bottom: -220px;
+  right: 2%;
+  background: radial-gradient(circle, rgba(199, 192, 224, 0.15), transparent 70%);
+  animation-delay: -8s;
+}
+
+@keyframes drift{
+  0%{ transform: translate(0, 0); }
+  100%{ transform: translate(26px, 32px); }
+}
+
+.wrapper{
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+  position: relative;
+  z-index: 1;
+}
+
+.topbar{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+
+.back{
+  font-size: 13.5px;
+  color: #9aa39f;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color .2s ease;
+}
+
+.back:hover{ color: #edf1ee; }
+
+.brand{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.mark{
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #d8bd8a, #efe2c5, #d8bd8a);
+  box-shadow: 0 0 14px rgba(216, 189, 138, 0.5);
+}
+
+h1{
+  font-family: Georgia, serif;
+  font-weight: normal;
+  font-size: 32px;
+  margin-bottom: 6px;
+}
+
+.sub{
+  color: #9aa39f;
+  font-size: 14px;
+  margin-bottom: 28px;
+}
+
+.card{
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 18px;
+  padding: 28px;
+  margin-bottom: 22px;
+}
+
+.card h2{
+  font-family: Georgia, serif;
+  font-weight: normal;
+  font-size: 19px;
+  margin-bottom: 4px;
+}
+
+.card .card-sub{
+  color: #9aa39f;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+.row{
+  display: flex;
+  gap: 12px;
+}
+
+.row .field{ flex: 1; }
+
+.field{ margin-bottom: 14px; }
+
+.field label{
+  display: block;
+  font-size: 12.5px;
+  color: #9aa39f;
+  margin-bottom: 8px;
+}
+
+.field input{
+  width: 100%;
+  background: #111417;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 12px 14px;
+  color: #edf1ee;
+  font-size: 14px;
+  font-family: inherit;
+  transition: border-color .2s ease, background .2s ease, transform .2s ease;
+}
+
+.field input::placeholder{ color: #6b716e; }
+
+.field input:focus{
+  outline: none;
+  border-color: #d8bd8a;
+  background: rgba(255, 255, 255, 0.03);
+  transform: translateY(-1px);
+}
+
+.field input:disabled{
+  color: #6b716e;
+  cursor: not-allowed;
+}
+
+.btn{
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: bold;
+  font-size: 13.5px;
+  border-radius: 12px;
+  padding: 12px 20px;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.btn-light{
+  background: #edf1ee;
+  color: #0a0b0c;
+}
+
+.btn-light:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(237, 241, 238, 0.16);
+}
+
+.btn-danger{
+  background: transparent;
+  color: #d99b91;
+  border: 1px solid rgba(217, 155, 145, 0.4);
+}
+
+.btn-danger:hover{
+  background: rgba(217, 155, 145, 0.1);
+}
+
+.danger-zone{
+  border-color: rgba(217, 155, 145, 0.3);
+}
+
+.danger-zone h2{
+  color: #d99b91;
+}
+
+.notice{
+  font-size: 13px;
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  display: none;
+}
+
+.notice.error{
+  background: rgba(217, 155, 145, 0.12);
+  border: 1px solid rgba(217, 155, 145, 0.35);
+  color: #e3b0a8;
+}
+
+.notice.success{
+  background: rgba(143, 214, 192, 0.12);
+  border: 1px solid rgba(143, 214, 192, 0.35);
+  color: #8fd6c0;
+}
+
+@media(max-width: 560px){
+  .row{ flex-direction: column; gap: 0; }
+  .card{ padding: 20px; }
+}

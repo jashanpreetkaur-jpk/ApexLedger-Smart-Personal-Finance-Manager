@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — ApexLedger</title>
+    <link rel="stylesheet" href="/CSS/dashboard.css">
+</head>
+<body>
+    <div class="glow-field">
+        <div class="blob b1"></div>
+        <div class="blob b2"></div>
+        <div class="blob b3"></div>
+    </div>
+
+    <header>
+        <div class="shell">
+            <nav class="navbar">
+                <a class="brand" href="#">
+                    <span class="mark"></span>ApexLedger
+                </a>
+                <div class="navlinks" id="navlinks">
+                    <button data-route="overview" class="active">Overview</button>
+                    <button data-route="transactions">Transactions</button>
+                    <button data-route="budgets">Budgets</button>
+                    <button data-route="goals">Goals</button>
+                    <button data-route="insights">Insights</button>
+                </div>
+                <div class="nav-right">
+                    <button class="btn btn-light" id="addTxnBtn">+ Add transaction</button>
+                    <a class="vault-nav-link" href="/receipts">Receipt Vault</a>
+                    <a class="vault-nav-link" href="/bills-subscriptions">Bills &amp; Subscriptions</a>
+                    <a class="vault-nav-link" href="/financial-news">Financial News</a>
+                    <a class="vault-nav-link" href="/reports">Reports</a>
+                    <div class="user-chip" id="userChip">
+                        <span class="user-avatar" id="userAvatar">RM</span>
+                        <span class="user-name" id="userName">Riya Mehta</span>
+                        <div class="user-menu" id="userMenu">
+                            <a href="profile.html">Profile</a>
+                            <button id="menuCurrency">Currency: $ USD</button>
+                            <button id="menuReset">Reset demo data</button>
+                            <hr>
+                            <button id="menuSignout">Sign out</button>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="shell">
+
+            <section class="view active" id="viewOverview">
+                <div class="view-head">
+                    <div>
+                        <div class="kicker" id="greetingKicker">GOOD MORNING</div>
+                        <h1 id="greetingName">Welcome back, Riya</h1>
+                        <p>Here's where things stand this month.</p>
+                    </div>
+                </div>
+
+                <div class="card static dashboard-notifications" id="dashboardNotifications" aria-labelledby="notificationsTitle">
+                    <div class="card-head"><div><div class="card-title" id="notificationsTitle">Notifications</div><div class="card-sub">Budget, bill, and savings goal reminders</div></div></div>
+                    <div id="dashboardAlertsList" aria-live="polite"></div>
+                </div>
+
+                <div class="row-2">
+                    <div class="hero-panel">
+                        <div class="hero-top">
+                            <div>
+                                <div class="hero-label">Total balance</div>
+                                <div class="hero-num" id="heroBalance">$0</div>
+                            </div>
+                            <div class="hero-quick">
+                                <button class="btn btn-ghost" id="heroIncome">+ Income</button>
+                                <button class="btn btn-ghost" id="heroExpense">− Expense</button>
+                            </div>
+                        </div>
+                        <div class="split">
+                            <div>
+                                <div class="split-lbl">Income this month</div>
+                                <div class="split-num up mono" id="splitIncome">$0</div>
+                            </div>
+                            <div>
+                                <div class="split-lbl">Spent this month</div>
+                                <div class="split-num down mono" id="splitExpense">$0</div>
+                            </div>
+                            <div>
+                                <div class="split-lbl">Net this month</div>
+                                <div class="split-num mono" id="splitNet">$0</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card static">
+                        <div class="ring-wrap">
+                            <div class="ring-dyn" id="savingsRing">
+                                <span class="ring-num" id="savingsRingNum">0%</span>
+                            </div>
+                            <div class="ring-lbl">of income kept<br>this month — your savings rate</div>
+                        </div>
+                        <hr class="divider">
+                        <div class="card-sub" style="margin-bottom:6px;">Active budgets</div>
+                        <div class="split-num mono" id="statBudgets" style="font-size:20px;">0</div>
+                    </div>
+                </div>
+
+                <div class="stat-grid">
+                    <div class="card static stat-card stat-income">
+                        <div class="lbl">Income (all time)</div>
+                        <div class="num mono" id="statAllIncome">$0</div>
+                    </div>
+                    <div class="card static stat-card stat-expense">
+                        <div class="lbl">Expenses (all time)</div>
+                        <div class="num mono" id="statAllExpense">$0</div>
+                    </div>
+                    <div class="card static stat-card stat-goals">
+                        <div class="lbl">Savings goals</div>
+                        <div class="num mono" id="statGoals">0</div>
+                    </div>
+                    <div class="card static stat-card stat-count">
+                        <div class="lbl">Transactions logged</div>
+                        <div class="num mono" id="statCount">0</div>
+                    </div>
+                </div>
+
+                <div class="row-2">
+                    <div class="card static">
+                        <div class="card-head">
+                            <div>
+                                <div class="card-title">Recent transactions</div>
+                                <div class="card-sub">Your latest activity</div>
+                            </div>
+                            <button class="btn btn-ghost" data-goto="transactions" style="padding:8px 14px;font-size:12.5px;">View all</button>
+                        </div>
+                        <div id="recentList"></div>
+                    </div>
+                    <div class="card static">
+                        <div class="card-head">
+                            <div>
+                                <div class="card-title">Spending by category</div>
+                                <div class="card-sub">This month</div>
+                            </div>
+                        </div>
+                        <div class="bars palette" id="overviewBars"></div>
+                        <div class="bars-labels" id="overviewBarsLabels"></div>
+                    </div>
+                </div>
+                <div class="card static exchange-card" id="exchangeCard">
+                    <div class="card-head"><div><div class="card-title">Currency exchange</div><div class="card-sub">Live reference rate from USD</div></div>
+                        <button class="btn btn-ghost" id="retryExchange" type="button">Retry</button>
+                    </div>
+                    <div id="exchangeStatus" role="status" aria-live="polite">Loading exchange rate…</div>
+                    <div class="exchange-rate" id="exchangeRate"></div>
+                    <div class="exchange-converter">
+                        <label for="exchangeAmount">Convert USD to INR</label>
+                        <input id="exchangeAmount" type="number" min="0.01" step="0.01" value="100" aria-describedby="conversionResult">
+                        <output id="conversionResult" for="exchangeAmount" aria-live="polite">Loading conversion…</output>
+                    </div>
+                    <small>Rates from open.er-api.com. Reference rates can differ from rates offered by banks.</small>
+                </div>
+            </section>
+
+            <section class="view" id="viewTransactions">
+                <div class="view-head">
+                    <div>
+                        <div class="kicker">EVERY DOLLAR</div>
+                        <h1>Transactions</h1>
+                        <p>Search, filter, and manage your activity.</p>
+                    </div>
+                </div>
+                <div class="filters-bar">
+                    <div class="tabseg" id="typeFilterSeg">
+                        <button class="active" data-val="all">All</button>
+                        <button data-val="income">Income</button>
+                        <button data-val="expense">Expense</button>
+                    </div>
+                    <div class="searchbar">
+                        <span>⌕</span>
+                        <input type="text" id="searchInput" placeholder="Search notes or categories…">
+                    </div>
+                    <select id="filterCategory">
+                        <option value="all">All categories</option>
+                    </select>
+                    <select id="filterDate" aria-label="Filter by date range">
+                        <option value="all">Any date</option>
+                        <option value="this-month">This month</option>
+                        <option value="last-30">Last 30 days</option>
+                    </select>
+                    <select id="filterSort">
+                        <option value="date-desc">Newest first</option>
+                        <option value="date-asc">Oldest first</option>
+                        <option value="amount-desc">Amount: high to low</option>
+                        <option value="amount-asc">Amount: low to high</option>
+                    </select>
+                    <button class="btn btn-ghost reset-filters" id="resetTxnFilters" type="button">Reset filters</button>
+                </div>
+                <div class="txn-result-count" id="txnResultCount" aria-live="polite"></div>
+                <div class="card static table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Note</th>
+                                <th>Date</th>
+                                <th>Account</th>
+                                <th style="text-align:right;">Amount</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="txnTableBody"></tbody>
+                    </table>
+                    <div id="txnEmpty"></div>
+                    <div class="txn-pagination" id="txnPagination" aria-label="Transaction pages"></div>
+                </div>
+            </section>
+
+            <section class="view" id="viewBudgets">
+                <div class="view-head">
+                    <div>
+                        <div class="kicker">STAY AHEAD</div>
+                        <h1>Budgets</h1>
+                        <p>Monthly limits by category.</p>
+                    </div>
+                    <button class="btn btn-light" id="addBudgetBtn">+ New budget</button>
+                </div>
+                <div class="budget-grid" id="budgetGrid"></div>
+            </section>
+
+            <section class="view" id="viewGoals">
+                <div class="view-head">
+                    <div>
+                        <div class="kicker">WHAT MATTERS</div>
+                        <h1>Goals</h1>
+                        <p>Save toward something real, with a completion date.</p>
+                    </div>
+                    <button class="btn btn-light" id="addGoalBtn">+ New goal</button>
+                </div>
+                <div class="goal-grid" id="goalGrid"></div>
+            </section>
+
+            <section class="view" id="viewInsights">
+                <div class="view-head">
+                    <div>
+                        <div class="kicker">THE NUMBERS</div>
+                        <h1>Insights</h1>
+                        <p>Patterns in your spending, without the digging.</p>
+                    </div>
+                </div>
+                <div class="row-2">
+                    <div class="card static">
+                        <div class="card-head">
+                            <div>
+                                <div class="card-title">Income vs expenses</div>
+                                <div class="card-sub">Last 6 months</div>
+                            </div>
+                        </div>
+                        <div class="dualbars" id="insightDualbars"></div>
+                        <div class="dualbars-labels" id="insightDualbarsLabels"></div>
+                        <div class="legend-row">
+                            <div class="li"><span class="sw sw-income"></span>Income</div>
+                            <div class="li"><span class="sw sw-expense"></span>Expenses</div>
+                        </div>
+                    </div>
+                    <div class="card static">
+                        <div class="card-head">
+                            <div>
+                                <div class="card-title">Top categories</div>
+                                <div class="card-sub">This month, by spend</div>
+                            </div>
+                        </div>
+                        <div id="topCats"></div>
+                    </div>
+                </div>
+                <div class="card static" style="margin-top:18px;">
+                    <div class="card-head">
+                        <div>
+                            <div class="card-title">Net savings trend</div>
+                            <div class="card-sub">Income minus expenses, 6 months</div>
+                        </div>
+                    </div>
+                    <div class="bars" id="insightNetBars" style="height:120px;"></div>
+                    <div class="bars-labels" id="insightNetLabels"></div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer>
+        <div class="shell">
+            <p>© 2026 ApexLedger — data stays in this browser only.</p>
+            <p class="mono" id="footerClock"></p>
+        </div>
+    </footer>
+
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+
+    <div class="modal" id="txnModal">
+        <div class="modal-head">
+            <h2 id="txnModalTitle">Add transaction</h2>
+            <button class="modal-close" data-close>✕</button>
+        </div>
+        <form id="txnForm">
+            <input type="hidden" id="txnId">
+            <div class="type-toggle">
+                <button type="button" id="typeExpense" class="on-expense">Expense</button>
+                <button type="button" id="typeIncome">Income</button>
+            </div>
+            <div class="field">
+                <label>Category</label>
+                <div class="cat-picker" id="catPicker"></div>
+                <input type="hidden" id="txnCategory">
+            </div>
+            <div class="field">
+                <label for="txnAmount">Amount</label>
+                <input type="number" id="txnAmount" min="0" step="0.01" placeholder="0.00" required>
+            </div>
+            <div class="field-row">
+                <div class="field">
+                    <label for="txnDate">Date</label>
+                    <input type="date" id="txnDate" required>
+                </div>
+                <div class="field">
+                    <label for="txnAccount">Account</label>
+                    <input type="text" id="txnAccount" placeholder="Cash, bank, card…">
+                </div>
+            </div>
+            <div class="field">
+                <label for="txnNote">Note</label>
+                <input type="text" id="txnNote" placeholder="What was this for?">
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-ghost" data-close>Cancel</button>
+                <button type="submit" class="btn btn-light">Save transaction</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="modal" id="budgetModal">
+        <div class="modal-head">
+            <h2 id="budgetModalTitle">New budget</h2>
+            <button class="modal-close" data-close>✕</button>
+        </div>
+        <form id="budgetForm">
+            <input type="hidden" id="budgetId">
+            <div class="field">
+                <label for="budgetCategory">Category</label>
+                <select id="budgetCategory" required></select>
+            </div>
+            <div class="field">
+                <label for="budgetLimit">Monthly limit</label>
+                <input type="number" id="budgetLimit" min="1" step="1" placeholder="0.00" required>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-ghost" data-close>Cancel</button>
+                <button type="submit" class="btn btn-light">Save budget</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="modal" id="goalModal">
+        <div class="modal-head">
+            <h2>New goal</h2>
+            <button class="modal-close" data-close>✕</button>
+        </div>
+        <form id="goalForm">
+            <div class="field">
+                <label for="goalName">Goal name</label>
+                <input type="text" id="goalName" placeholder="e.g. Emergency fund" required>
+            </div>
+            <div class="field-row">
+                <div class="field">
+                    <label for="goalTarget">Target amount</label>
+                    <input type="number" id="goalTarget" min="1" step="1" required>
+                </div>
+                <div class="field">
+                    <label for="goalCurrent">Starting amount</label>
+                    <input type="number" id="goalCurrent" min="0" step="1" value="0">
+                </div>
+            </div>
+            <div class="field">
+                <label for="goalDeadline">Target date</label>
+                <input type="date" id="goalDeadline">
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-ghost" data-close>Cancel</button>
+                <button type="submit" class="btn btn-light">Create goal</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="modal" id="contributeModal">
+        <div class="modal-head">
+            <h2>Add funds</h2>
+            <button class="modal-close" data-close>✕</button>
+        </div>
+        <form id="contributeForm">
+            <input type="hidden" id="contributeGoalId">
+            <div class="field">
+                <label for="contributeAmount">Amount to add</label>
+                <input type="number" id="contributeAmount" min="1" step="1" required>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-ghost" data-close>Cancel</button>
+                <button type="submit" class="btn btn-light">Add funds</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="/JS/auth.js"></script>
+    <script src="/JS/dashboard.js"></script>
+
+</body>
+</html>

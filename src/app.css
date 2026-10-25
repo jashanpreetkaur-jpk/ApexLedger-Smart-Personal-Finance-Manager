@@ -1,0 +1,35 @@
+.page-loading,
+.page-error {
+  min-height: 100vh;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 12px;
+  padding: 24px;
+  background: #0a0b0c;
+  color: #edf1ee;
+  font: 14px Arial, sans-serif;
+  text-align: center;
+}
+
+.page-error a { color: #d8bd8a; }
+
+
+body {
+  display: block;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.legacy-page.page-login,
+.legacy-page.page-signup {
+  display: flex;
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
